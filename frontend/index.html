@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Fridge</title>
+</head>
+<body>
+    <h1>Smart Fridge Tracker 🧊</h1>
+
+    <input id="name" placeholder="Item name">
+    <input id="expiry" type="date">
+    <button onclick="addItem()">Add</button>
+
+    <ul id="list"></ul>
+
+    <script>
+        const API = "http://localhost:5000/items";
+
+        async function fetchItems() {
+            const res = await fetch(API);
+            const data = await res.json();
+
+            const list = document.getElementById("list");
+            list.innerHTML = "";
+
+            data.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = `${item.name} - ${item.expiry}`;
+                list.appendChild(li);
+            });
+        }
+
+        async function addItem() {
+            const name = document.getElementById("name").value;
+            const expiry = document.getElementById("expiry").value;
+
+            await fetch(API, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({name, expiry})
+            });
+
+            fetchItems();
+        }
+
+        fetchItems();
+    </script>
+</body>
+</html>

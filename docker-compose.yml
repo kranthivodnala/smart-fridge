@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+
+  notifier:
+    build: ./notifier
+    depends_on:
+      - backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
