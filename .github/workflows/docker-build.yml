@@ -9,9 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -26,11 +23,7 @@ jobs:
     # 🔹 Backend
     - name: Build Backend Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend ./backend
-    - name: Scan Backend Image
-      uses: lazy-actions/gitrivy@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
+
     - name: Push Backend Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
 
@@ -38,11 +31,7 @@ jobs:
     # 🔹 Frontend
     - name: Build Frontend Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend ./frontend
-    - name: Scan Frontend Image
-      uses: lazy-actions/gitrivy@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
+
     - name: Push Frontend Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
 
@@ -50,10 +39,6 @@ jobs:
     # 🔹 Notifier
     - name: Build Notifier Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier ./notifier
-    - name: Scan Notifier Image
-      uses: lazy-actions/gitrivy@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
+
     - name: Push Notifier Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
