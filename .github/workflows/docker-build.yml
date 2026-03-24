@@ -1,0 +1,50 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # 🔹 Backend
+    - name: Build Backend Image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend ./backend
+      # Scan docker image for vulnerabilities
+    - name: Scan Backend Image
+      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
+    # Push backend image to DockerHub
+    - name: Push Backend Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
+
+    # 🔹 Frontend
+    - name: Build Frontend Image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend ./frontend
+      # Scan docker image for vulnerabilities
+    - name: Scan Frontend Image
+      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
+    # Push frontend image to DockerHub
+    - name: Push Frontend Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
+
+    # 🔹 Notifier
+    - name: Build Notifier Image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier ./notifier
+      # Scan docker image for vulnerabilities
+    - name: Scan Notifier Image
+      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
+    # Push notifier image to DockerHub
+    - name: Push Notifier Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
