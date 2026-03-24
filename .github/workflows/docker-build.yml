@@ -22,32 +22,38 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+
     # 🔹 Backend
     - name: Build Backend Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend ./backend
-      # Scan docker image for vulnerabilities
     - name: Scan Backend Image
-      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
-    # Push backend image to DockerHub
+      uses: lazy-actions/gitrivy@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
     - name: Push Backend Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-backend
+
 
     # 🔹 Frontend
     - name: Build Frontend Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend ./frontend
-      # Scan docker image for vulnerabilities
     - name: Scan Frontend Image
-      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
-    # Push frontend image to DockerHub
+      uses: lazy-actions/gitrivy@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
     - name: Push Frontend Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-frontend
+
 
     # 🔹 Notifier
     - name: Build Notifier Image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier ./notifier
-      # Scan docker image for vulnerabilities
     - name: Scan Notifier Image
-      run: docker scan ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
-    # Push notifier image to DockerHub
+      uses: lazy-actions/gitrivy@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image: ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
     - name: Push Notifier Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/smart-fridge-notifier
