@@ -14,7 +14,7 @@ frontend:
   servicePort: 3000
   replicas: 2
 
-serviceType: ClusterIP  # Change to NodePort or LoadBalancer if needed
+serviceType: LoadBalancer  # Changed to LoadBalancer for AWS EKS
 
 notifier:
   image: 
