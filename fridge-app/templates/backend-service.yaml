@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: backend
 spec:
-  type: NodePort
   selector:
     app: backend
-ports:
-  - port: {{ .Values.backend.service.port }}
-    targetPort: {{ .Values.backend.service.targetPort }}
-    nodePort: {{ .Values.backend.service.nodePort }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.servicePort }}
+      targetPort: {{ .Values.backend.containerPort }}
+  type: {{ .Values.serviceType }}

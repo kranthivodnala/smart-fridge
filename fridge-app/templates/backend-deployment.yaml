@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 1
+  replicas: {{ .Values.backend.replicas }}
   selector:
     matchLabels:
       app: backend
@@ -13,7 +13,7 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: {{ .Values.backend.image }}
-        ports:
-        - containerPort: 5000
+        - name: backend
+          image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+          ports:
+            - containerPort: {{ .Values.backend.containerPort }}
