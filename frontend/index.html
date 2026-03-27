@@ -13,7 +13,7 @@
     <ul id="list"></ul>
 
     <script>
-        const API = "http://backend:5000/items";
+        export const API = "http://localhost:30008/items";  // NodePort exposed from backend
 
         async function fetchItems() {
             const res = await fetch(API);

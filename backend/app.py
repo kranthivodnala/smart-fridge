@@ -4,7 +4,12 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-items = []
+items = [
+    {"name": "Milk", "expiry": "2026-03-25"},
+    {"name": "Chocolates", "expiry": "2026-03-25"},
+    {"name": "Chicken", "expiry": "2026-03-27"},
+    {"name": "Yogurt", "expiry": "2026-03-26"}
+]
 
 @app.route('/items', methods=['GET'])
 def get_items():

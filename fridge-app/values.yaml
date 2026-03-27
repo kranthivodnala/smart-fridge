@@ -1,10 +1,8 @@
 backend:
-  image: spidermanintegration/smart-fridge-backend
-  port: 5000
+  image: spidermanintegration/smart-fridge-backend:latest
 
 frontend:
-  image: spidermanintegration/smart-fridge-frontend
-  port: 80
-
+  image: spidermanintegration/smart-fridge-frontend:latest
+  
 notifier:
-  image: spidermanintegration/smart-fridge-notifier
+  image: spidermanintegration/smart-fridge-notifier:latest

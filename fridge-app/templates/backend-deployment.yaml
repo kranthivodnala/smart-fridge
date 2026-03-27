@@ -16,4 +16,4 @@ spec:
       - name: backend
         image: {{ .Values.backend.image }}
         ports:
-        - containerPort: 5000
+        - containerPort: {{ .Values.backend.port }}
