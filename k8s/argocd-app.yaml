@@ -13,7 +13,7 @@ spec:
     path: fridge-app
 
   destination:
-    server: https://BCDF6BB8CE8F758F531A089A74CF9E87.gr7.us-east-1.eks.amazonaws.com
+    server: https://kubernetes.default.svc
     namespace: default
 
   syncPolicy:
